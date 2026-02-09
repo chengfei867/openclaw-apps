@@ -1,8 +1,11 @@
-FROM node:20-alpine
+FROM registry.baidubce.com/csm-offline/vibe-kanban:1.0.0
+
 WORKDIR /app
 COPY package.json ./
 COPY backend/package.json ./backend/
 RUN npm install
 COPY . .
-EXPOSE 3000
-CMD ["npm", "start"]
+
+ENV PORT=3030
+EXPOSE 3030
+CMD ["node", "backend/server.js"]
