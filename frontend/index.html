@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Todo Manager</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="page-header">
+        <div>
+          <p class="page-kicker">Todo Manager</p>
+          <h1>Plan today, finish strong.</h1>
+          <p class="page-subtitle">
+            Capture tasks, track progress, and keep everything in one place.
+          </p>
+        </div>
+        <div class="page-badge" aria-hidden="true">B1</div>
+      </header>
+
+      <section class="board">
+        <section class="card" aria-label="Add todo">
+          <h2>Add a todo</h2>
+          <form class="todo-form" autocomplete="off">
+            <div class="field">
+              <label for="todo-title">Title</label>
+              <input
+                id="todo-title"
+                name="title"
+                type="text"
+                placeholder="e.g. Plan sprint review"
+                required
+              />
+            </div>
+            <div class="field">
+              <label for="todo-desc">Description</label>
+              <textarea
+                id="todo-desc"
+                name="description"
+                rows="3"
+                placeholder="Optional details"
+              ></textarea>
+            </div>
+            <button class="btn btn-primary" type="submit">Add todo</button>
+          </form>
+        </section>
+
+        <section class="card" aria-label="Todo list">
+          <div class="card-header">
+            <div>
+              <h2>Todos</h2>
+              <p class="muted">Stay focused with a clear list.</p>
+            </div>
+            <div class="filters" role="group" aria-label="Filter todos">
+              <button
+                class="filter-btn is-active"
+                type="button"
+                aria-pressed="true"
+                data-filter="all"
+              >
+                All
+              </button>
+              <button
+                class="filter-btn"
+                type="button"
+                aria-pressed="false"
+                data-filter="active"
+              >
+                Active
+              </button>
+              <button
+                class="filter-btn"
+                type="button"
+                aria-pressed="false"
+                data-filter="completed"
+              >
+                Completed
+              </button>
+            </div>
+          </div>
+
+          <ul class="todo-list" aria-live="polite">
+            <li class="todo-item">
+              <label class="todo-check">
+                <input type="checkbox" />
+              </label>
+              <div class="todo-content">
+                <div class="todo-title">Prepare weekly report</div>
+                <div class="todo-desc">
+                  Gather metrics from product, sales, and support.
+                </div>
+              </div>
+              <div class="todo-actions">
+                <button class="btn btn-ghost" type="button">Edit</button>
+                <button class="btn btn-danger" type="button">Delete</button>
+              </div>
+            </li>
+            <li class="todo-item is-complete">
+              <label class="todo-check">
+                <input type="checkbox" checked />
+              </label>
+              <div class="todo-content">
+                <div class="todo-title">Review release checklist</div>
+                <div class="todo-desc">Confirm staging is ready to ship.</div>
+              </div>
+              <div class="todo-actions">
+                <button class="btn btn-ghost" type="button">Edit</button>
+                <button class="btn btn-danger" type="button">Delete</button>
+              </div>
+            </li>
+          </ul>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
