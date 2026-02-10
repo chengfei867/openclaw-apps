@@ -3,6 +3,7 @@ import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
 import NotePage from './pages/NotePage.jsx';
 import { useAuthStore } from './store/authStore.js';
+import { useThemeStore } from './store/themeStore.js';
 
 function RequireAuth({ children }) {
   const token = useAuthStore((state) => state.token);
@@ -21,6 +22,8 @@ function PublicOnly({ children }) {
 }
 
 export default function App() {
+  useThemeStore((state) => state.theme);
+
   return (
     <HashRouter>
       <Routes>
