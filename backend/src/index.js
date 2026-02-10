@@ -4,6 +4,8 @@ const cors = require('cors');
 const { PORT } = require('./config');
 const errorHandler = require('./middleware/errorHandler');
 const authRoutes = require('./routes/auth');
+const tagRoutes = require('./routes/tags');
+const uploadRoutes = require('./routes/upload');
 
 require('./db');
 
@@ -21,6 +23,8 @@ app.get('/api/health', (req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use('/api/tags', tagRoutes);
+app.use('/api/upload', uploadRoutes);
 
 app.use(errorHandler);
 
