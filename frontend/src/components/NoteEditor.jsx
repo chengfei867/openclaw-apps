@@ -35,6 +35,7 @@ export default function NoteEditor({ value = '', onChange }) {
   const viewRef = useRef(null);
   const ignoreUpdateRef = useRef(false);
   const onChangeRef = useRef(onChange);
+  const valueRef = useRef(value);
   const themeCompartmentRef = useRef(new Compartment());
   const theme = useThemeStore((state) => state.theme);
 
@@ -52,13 +53,14 @@ export default function NoteEditor({ value = '', onChange }) {
         return;
       }
       const nextValue = update.state.doc.toString();
+      valueRef.current = nextValue;
       if (onChangeRef.current) {
         onChangeRef.current(nextValue);
       }
     });
 
     const state = EditorState.create({
-      doc: value,
+      doc: valueRef.current,
       extensions: [
         markdown(),
         EditorView.lineWrapping,
@@ -77,21 +79,10 @@ export default function NoteEditor({ value = '', onChange }) {
       viewRef.current?.destroy();
       viewRef.current = null;
     };
-  }, [theme, value]);
+  }, []);
 
   useEffect(() => {
-    const view = viewRef.current;
-    if (!view) {
-      return;
-    }
-    view.dispatch({
-      effects: themeCompartmentRef.current.reconfigure(
-        theme === 'dark' ? oneDark : []
-      ),
-    });
-  }, [theme]);
-
-  useEffect(() => {
+    valueRef.current = value;
     const view = viewRef.current;
     if (!view) {
       return;
@@ -106,6 +97,18 @@ export default function NoteEditor({ value = '', onChange }) {
     });
     ignoreUpdateRef.current = false;
   }, [value]);
+
+  useEffect(() => {
+    const view = viewRef.current;
+    if (!view) {
+      return;
+    }
+    view.dispatch({
+      effects: themeCompartmentRef.current.reconfigure(
+        theme === 'dark' ? oneDark : []
+      ),
+    });
+  }, [theme]);
 
   return <div ref={containerRef} className="h-full w-full" />;
 }
