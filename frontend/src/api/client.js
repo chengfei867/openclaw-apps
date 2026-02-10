@@ -3,7 +3,7 @@ import axios from 'axios';
 const TOKEN_KEY = 'md-note-token';
 
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: '/md-note/api',
   timeout: 10000,
 });
 

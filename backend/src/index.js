@@ -11,26 +11,30 @@ const uploadRoutes = require("./routes/upload");
 require("./db");
 
 const app = express();
+const BASE = "/md-note";
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 const staticPath = path.resolve(__dirname, "..", "..", "static");
-app.use(express.static(staticPath));
+app.use(BASE, express.static(staticPath));
 
-app.get("/api/health", (req, res) => {
+app.get(BASE + "/api/health", (req, res) => {
   res.json({ status: "ok" });
 });
 
-app.use("/api/auth", authRoutes);
-app.use("/api/notes", noteRoutes);
-app.use("/api/tags", tagRoutes);
-app.use("/api/upload", uploadRoutes);
+app.use(BASE + "/api/auth", authRoutes);
+app.use(BASE + "/api/notes", noteRoutes);
+app.use(BASE + "/api/tags", tagRoutes);
+app.use(BASE + "/api/upload", uploadRoutes);
 
 // SPA fallback — serve index.html for non-API routes
-app.get("*", (req, res, next) => {
-  if (req.path.startsWith("/api")) return next();
+app.get(BASE + "/*", (req, res, next) => {
+  const relativePath = req.path.startsWith(BASE)
+    ? req.path.slice(BASE.length)
+    : req.path;
+  if (relativePath.startsWith("/api")) return next();
   res.sendFile(path.join(staticPath, "index.html"));
 });
 
