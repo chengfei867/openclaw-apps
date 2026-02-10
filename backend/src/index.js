@@ -28,6 +28,12 @@ app.use("/api/notes", noteRoutes);
 app.use("/api/tags", tagRoutes);
 app.use("/api/upload", uploadRoutes);
 
+// SPA fallback — serve index.html for non-API routes
+app.get("*", (req, res, next) => {
+  if (req.path.startsWith("/api")) return next();
+  res.sendFile(path.join(staticPath, "index.html"));
+});
+
 app.use(errorHandler);
 
 app.listen(PORT, () => {
