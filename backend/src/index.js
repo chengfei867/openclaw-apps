@@ -4,6 +4,7 @@ const cors = require('cors');
 const { PORT } = require('./config');
 const errorHandler = require('./middleware/errorHandler');
 const authRoutes = require('./routes/auth');
+const noteRoutes = require('./routes/notes');
 
 require('./db');
 
@@ -21,6 +22,7 @@ app.get('/api/health', (req, res) => {
 });
 
 app.use('/api/auth', authRoutes);
+app.use('/api/notes', noteRoutes);
 
 app.use(errorHandler);
 
